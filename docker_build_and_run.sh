@@ -8,7 +8,7 @@ echo -e "\033[01;32m#########################\033[01;32m"
 cd shop-api-consumer/
 rm -rf target/
 mvn clean install -DskipTests
-#################
+#####################
 
 cd ../
 echo -e "\n\n"
@@ -21,7 +21,7 @@ echo -e "\033[01;32m#########################\033[01;32m"
 cd shop-api-producer/
 rm -rf target/
 mvn clean install -DskipTests
-#################
+#####################
 
 cd ../
 echo -e "\n\n"
