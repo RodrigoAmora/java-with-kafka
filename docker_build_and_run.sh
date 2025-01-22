@@ -1,20 +1,30 @@
 #!/bin/bash
 
-### CONSUMER ###
+### SHOP CONSUMER ###
+echo -e "\033[01;32m#########################\033[01;32m"
+echo -e "\033[01;32m##### Shop Consumer #####\033[01;32m"
+echo -e "\033[01;32m#########################\033[01;32m"
+
 cd shop-api-consumer/
 rm -rf target/
-mvn clean install -Pprod -DskipTests
+mvn clean install -DskipTests
 #################
 
 cd ../
+echo -e "\n\n"
 
-### PRODUCER ###
+### SHOP PRODUCER ###
+echo -e "\033[01;32m#########################\033[01;32m"
+echo -e "\033[01;32m##### Shop Producer #####\033[01;32m"
+echo -e "\033[01;32m#########################\033[01;32m"
+
 cd shop-api-producer/
 rm -rf target/
-mvn clean install -Pprod -DskipTests
+mvn clean install -DskipTests
 #################
 
 cd ../
+echo -e "\n\n"
 
 ### DOCKER ###
 echo -e "\n"
