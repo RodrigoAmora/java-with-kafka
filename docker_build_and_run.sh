@@ -5,6 +5,12 @@ echo -e "\033[01;32m#########################\033[01;32m"
 echo -e "\033[01;32m##### Shop Consumer #####\033[01;32m"
 echo -e "\033[01;32m#########################\033[01;32m"
 
+echo -e "\n"
+echo -e "\033[01;32mDeleting the image of Shop Consumer....\033[01;32m"
+echo -e "\n"
+docker rmi -f shop-consumer
+echo -e "\n"
+
 cd shop-api-consumer/
 rm -rf target/
 mvn clean install -DskipTests
@@ -17,6 +23,12 @@ echo -e "\n\n"
 echo -e "\033[01;32m#########################\033[01;32m"
 echo -e "\033[01;32m##### Shop Producer #####\033[01;32m"
 echo -e "\033[01;32m#########################\033[01;32m"
+
+echo -e "\n"
+echo -e "\033[01;32mDeleting the image of Shop Producer....\033[01;32m"
+echo -e "\n"
+docker rmi -f shop-producer
+echo -e "\n"
 
 cd shop-api-producer/
 rm -rf target/
