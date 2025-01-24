@@ -1,16 +1,62 @@
 version: "3.8"
 
 services:
+  mysql-service-shop-producer:
+    image: mysql/mysql-server:8.0.32-1.2.11-server
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: 'mysql-server'
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    networks:
+      - my-network
+    restart: always
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=rodrigo@1988
+      - MYSQL_DATABASE=shop_producer
+      - MYSQL_ROOT_HOST=127.0.0.1
+    ports:
+      - "3306:3306"
+    expose:
+      - '3306'
+
+  mysql-service-shop-consumer:
+    image: mysql/mysql-server:8.0.32-1.2.11-server
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: 'mysql-server'
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    networks:
+      - my-network
+    restart: always
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=rodrigo@1988
+      - MYSQL_DATABASE=shop_consumer
+      - MYSQL_ROOT_HOST=127.0.0.1
+    ports:
+      - "3307:3306"
+    expose:
+      - '3307'
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.4.4
+    container_name: 'zookeeper'
+    hostname: 'zookeeper'
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - 22181:2181
+    networks:
+      - my-network
   
   kafka:
     image: confluentinc/cp-kafka:7.4.4
+    container_name: 'kafka'
+    hostname: 'kafka'
     depends_on:
       - zookeeper
     ports:
@@ -22,30 +68,50 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - my-network
 
   shop-producer:
     build:
-      context: ./shop-api-producer
+      context: shop-api-producer/
       dockerfile: Dockerfile
-    image: rodrigoamora/rodrigo-springboot
+    image: 'shop-producer'
     container_name: 'shop-producer'
+    hostname: 'shop-producer'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-service-shop-producer:3306/shop_producer?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rodrigo@1988
+      SPRING_PROFILES_ACTIVE: dev
     ports:
       - "8080:8080"
     networks:
-      - spring-boot-mysql-network
+      - my-network
     depends_on:
       - zookeeper
       - kafka
+      - mysql-service-shop-producer
 
   shop-consumer:
     build:
-      context: ./shop-api-consumer
+      context: shop-api-consumer/
       dockerfile: Dockerfile
-    image: rodrigoamora/rodrigo-springboot
+    image: 'shop-consumer'
     container_name: 'shop-consumer'
+    hostname: 'shop-consumer'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-service-shop-consumer:3307/shop_consumer?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rodrigo@1988
+      SPRING_PROFILES_ACTIVE: dev
     ports:
       - "8081:8081"
     networks:
-      - spring-boot-mysql-network
+      - my-network
     depends_on:
+      - mysql-service-shop-consumer
       - shop-producer
+
+networks:
+  my-network:
+    driver: bridge

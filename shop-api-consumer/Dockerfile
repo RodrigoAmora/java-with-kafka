@@ -6,7 +6,7 @@ LABEL version="1.0.7"
 LABEL name="Rodrigo Amora"
 
 # Define as variáveis AAP_NAME e VERSION
-ENV APP_NAME=Pedidos
+ENV APP_NAME=shop-api-consumer
 ENV VERSION=0.0.1-SNAPSHOT
 
 # Copia o arquivo JAR do seu projeto para dentro do container
