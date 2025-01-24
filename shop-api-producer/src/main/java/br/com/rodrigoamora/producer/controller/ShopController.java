@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.rodrigoamora.producer.dto.ShopDTO;
 import br.com.rodrigoamora.producer.entity.Shop;
 import br.com.rodrigoamora.producer.entity.ShopItem;
+import br.com.rodrigoamora.producer.events.kafka.KafkaClient;
 import br.com.rodrigoamora.producer.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -23,28 +24,34 @@ import lombok.RequiredArgsConstructor;
 public class ShopController {
 
 	private final ShopRepository shopRepository;
+	private final KafkaClient kafkaClient;
 	
 	@GetMapping
 	public List<ShopDTO> getShop() {
-		return this.shopRepository.findAll()
-							 	  .stream()
-							 	  .map(shop -> ShopDTO.convert(shop))
-							 	  .collect(Collectors.toList());
+		return shopRepository.findAll()
+							 .stream()
+							 .map(shop -> ShopDTO.convert(shop))
+							 .collect(Collectors.toList());
 	}
 	
 	@PostMapping
 	public ShopDTO saveShop(@RequestBody ShopDTO shopDTO) {
-		shopDTO.setIdentifier(UUID.randomUUID().toString());
+		String uuid = UUID.randomUUID().toString();
+		
+		shopDTO.setIdentifier(uuid);
 		shopDTO.setDateShop(LocalDate.now());
 		shopDTO.setStatus("PENDING");
-		
+	
 		Shop shop = Shop.convert(shopDTO);
 		for (ShopItem shopItem : shop.getItems()) {
 			shopItem.setShop(shop);
 		}
+		shop = this.shopRepository.save(shop);
 		
-		var shopSaved = this.shopRepository.save(shop);
+		shopDTO = ShopDTO.convert(shop);
+		this.kafkaClient.sendMessage(shopDTO);
 		
-		return ShopDTO.convert(shopSaved);
+		return shopDTO;
 	}
+	
 }
