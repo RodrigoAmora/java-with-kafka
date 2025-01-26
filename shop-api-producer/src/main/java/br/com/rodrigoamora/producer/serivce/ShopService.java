@@ -1,15 +1,13 @@
-package br.com.rodrigoamora.producer.controller;
+package br.com.rodrigoamora.producer.serivce;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import br.com.rodrigoamora.producer.dto.ShopDTO;
 import br.com.rodrigoamora.producer.entity.Shop;
@@ -18,24 +16,22 @@ import br.com.rodrigoamora.producer.events.kafka.KafkaClient;
 import br.com.rodrigoamora.producer.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
 
-@RestController
-@RequestMapping("/shop")
+@Component
 @RequiredArgsConstructor
-public class ShopController {
+public class ShopService {
 
 	private final ShopRepository shopRepository;
 	private final KafkaClient kafkaClient;
 	
-	@GetMapping
-	public List<ShopDTO> getShop() {
-		return shopRepository.findAll()
-							 .stream()
-							 .map(shop -> ShopDTO.convert(shop))
-							 .collect(Collectors.toList());
+	public List<ShopDTO> findAll() {
+		return this.shopRepository.findAll()
+				 				  .stream()
+				 				  .map(shop -> ShopDTO.convert(shop))
+				 				  .collect(Collectors.toList());
 	}
 	
-	@PostMapping
-	public ShopDTO saveShop(@RequestBody ShopDTO shopDTO) {
+	
+	public ShopDTO saveShop(ShopDTO shopDTO) {
 		String uuid = UUID.randomUUID().toString();
 		
 		shopDTO.setIdentifier(uuid);
