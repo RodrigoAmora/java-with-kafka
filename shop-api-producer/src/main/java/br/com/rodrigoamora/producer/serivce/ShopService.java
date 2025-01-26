@@ -30,6 +30,13 @@ public class ShopService {
 				 				  .collect(Collectors.toList());
 	}
 	
+	public ShopDTO findShopByID(@PathVariable(name = "id") Long id) {
+		Optional<Shop> shopFound = this.shopRepository.findById(id);
+		if (shopFound.isPresent()) {
+			return ShopDTO.convert(shopFound.get());
+		}
+		return null;
+	}
 	
 	public ShopDTO saveShop(ShopDTO shopDTO) {
 		String uuid = UUID.randomUUID().toString();
