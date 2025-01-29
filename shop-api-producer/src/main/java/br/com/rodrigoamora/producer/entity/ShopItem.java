@@ -20,12 +20,15 @@ public class ShopItem {
 	
 	@Column(name = "product_identifier")
 	private String productIdentifier;
+	
 	private Integer amount;
+	
 	private Float price;
 	
 	@ManyToOne
 	@JoinColumn(name = "shop_id")
 	private Shop shop;
+	
 	public static ShopItem convert(ShopItemDTO shopItemDTO) {
 		ShopItem shopItem = new ShopItem();
 		shopItem.setProductIdentifier(

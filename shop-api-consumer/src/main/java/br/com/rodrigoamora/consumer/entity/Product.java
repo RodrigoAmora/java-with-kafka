@@ -21,4 +21,5 @@ public class Product {
 	private String identifier;
 	
 	private Integer amount;
+	
 }
