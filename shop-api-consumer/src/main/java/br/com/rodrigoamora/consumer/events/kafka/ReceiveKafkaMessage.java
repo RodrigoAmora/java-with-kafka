@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import br.com.rodrigoamora.consumer.dto.ShopDTO;
 import br.com.rodrigoamora.consumer.dto.ShopItemDTO;
 import br.com.rodrigoamora.consumer.entity.Product;
+import br.com.rodrigoamora.consumer.entity.ShopStatus;
 import br.com.rodrigoamora.consumer.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class ReceiveKafkaMessage {
 		try {
 			log.info("Compra recebida no tópico: {}.", shopDTO.getIdentifier());
 			boolean success = true;
+			
 			for (ShopItemDTO item : shopDTO.getItems()) {
 				Product product = this.productRepository.findByIdentifier(item.getProductIdentifier());
 				if (!this.isValidShop(item, product)) {
@@ -52,14 +54,15 @@ public class ReceiveKafkaMessage {
 	// Envia uma mensagem para o Kafka indicando erro na compra
 	private void shopError(ShopDTO shopDTO) {
 		log.info("Erro no processamento da compra {}.", shopDTO.getIdentifier());
-		shopDTO.setStatus("ERROR");
+		shopDTO.setStatus(ShopStatus.ERROR.toString());
 		this.kafkaTemplate.send(SHOP_TOPIC_EVENT_NAME, shopDTO);
 	}
 	
 	// Envia uma mensagem para o Kafka indicando sucesso na compra
 	private void shopSuccess(ShopDTO shopDTO) {
 		log.info("Compra {} efetuada com sucesso.", shopDTO.getIdentifier());
-		shopDTO.setStatus("SUCCESS");
+		shopDTO.setStatus(ShopStatus.SUCCESS.toString());
 		this.kafkaTemplate.send(SHOP_TOPIC_EVENT_NAME, shopDTO);
 	}
+	
 }

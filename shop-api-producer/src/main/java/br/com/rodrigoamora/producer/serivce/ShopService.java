@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import br.com.rodrigoamora.producer.dto.ShopDTO;
 import br.com.rodrigoamora.producer.entity.Shop;
 import br.com.rodrigoamora.producer.entity.ShopItem;
+import br.com.rodrigoamora.producer.entity.ShopStatus;
 import br.com.rodrigoamora.producer.events.kafka.KafkaClient;
 import br.com.rodrigoamora.producer.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,7 @@ public class ShopService {
 		
 		shopDTO.setIdentifier(uuid);
 		shopDTO.setDateShop(LocalDate.now());
-		shopDTO.setStatus("PENDING");
+		shopDTO.setStatus(ShopStatus.PENDING.toString());
 	
 		Shop shop = Shop.convert(shopDTO);
 		for (ShopItem shopItem : shop.getItems()) {
