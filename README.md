@@ -68,16 +68,14 @@ Para automatizar esse processo, basta executar o Shellscript <b>`docker_build_an
 
 Kakfa:
 ------
-### Rodando o Kafka:
-
 Para rodar o Kafka localmente, é precisao rodar primeiro o Zookeeper.<br>
-<b>Rodando o Zookeeper:</b><br>
+### Rodando o Zookeeper:
 Execute o comando no terminal no diretório onde o Kafka:
 ```shell script
 ./bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
 
-# Rodando o Kafka:
+### Rodando o Kafka:
 Execute o comando no terminal no diretório onde o Kafka estiver na sua máquina:
 ```shell script
 ./bin/kafka-server-start.sh config/server.properties
