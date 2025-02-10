@@ -39,33 +39,6 @@ Para gerar o arquivo <b>.jar</b>, execute o comando via terminal no diretório r
 mvn clean install -DskipTests
 ```
 
-Rodando o projeto localmente:
------------------------------
-Para rodar cada projeto localmente, execute o comando no diretório raiz de cada um dos projetos:
-```shell script
-mvn spring-boot:run
-```
-
-Rodando o projeto no Docker:
-----------------------------
-Para rodar o projeto no Docker, primeiro deve-se gerar o .jar de cada um dos projetos.<br>
-Após isso, deve-se gerar o build das imagens e subir os containers do Docker.<br><br>
-<b>Fazendo o build das imagens do Docker:</b>
-```shell script
-docker-compose build
-```
-
-<b>Subindo os containers do Docker:</b>
-```shell script
-docker-compose up -d
-```
-
-##
-Para automatizar esse processo, basta executar o Shellscript <b>`docker_build_and_run.sh`</b>:
-```shell script
-./docker_build_and_run.sh
-```
-
 Kakfa:
 ------
 Para rodar o Kafka localmente, é precisao rodar primeiro o Zookeeper.<br>
@@ -87,6 +60,35 @@ Para consumir tópicos no Kafka, execute o comando no terminal no diretório ond
 ./bin/kafka-console-consumer.sh \
 	--topic topic_name \
 	--bootstrap-server localhost:9092
+```
+
+Rodando o projeto localmente:
+-----------------------------
+Para rodar cada projeto localmente, execute o comando no diretório raiz de cada um dos projetos:
+```shell script
+mvn spring-boot:run
+```
+
+Rodando o projeto no Docker:
+----------------------------
+Para rodar o projeto no Docker, primeiro deve-se gerar o .jar de cada um dos projetos.<br>
+Após isso, deve-se gerar o build das imagens e subir os containers do Docker.<br><br>
+<b>Fazendo o build das imagens do Docker:</b>
+```shell script
+docker-compose build
+```
+
+<b>Subindo os containers do Docker:</b>
+```shell script
+docker-compose up -d
+```
+
+Ao subir o Docker, irá ser criado um container para a aplicação que envia mensagem o Kafka e para a aplicação que recebe mensagem do Kafka, um conainter do Zookeeper, um conainter do Kafka e um conainter para o banco de dados.
+
+##
+Para automatizar esse processo, basta executar o Shellscript <b>`docker_build_and_run.sh`</b>:
+```shell script
+./docker_build_and_run.sh
 ```
 
 Autor:
