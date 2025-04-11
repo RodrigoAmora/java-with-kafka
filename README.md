@@ -1,32 +1,20 @@
 # java-with-kafka
 Descrição:
 ----------
-Projeto de uma API usando Java com Kafka.
+Projeto de uma API em Java integrando com o Kafka.
 
 Endpoints:
 ----------
 A documentação dos endpoints pode ser vista através do Swagger e do Redoc.<br>
 
-<b>Documentação dos endpoints de Pagamento via Swagger:</b>
+<b>Documentação dos endpoints via Swagger:</b>
 ```shell script
-http://localhost:8082/pagamentos-ms/swagger-ui.html
+http://localhost:8082/swagger-ui.html
 ```
 
-<b>Documentação dos endpoints de Pagamento via Redoc:</b>
+<b>Documentação dos endpoints via Redoc:</b>
 ```shell script
-http://localhost:8082/pagamentos-ms/redoc.html
-```
-
-##
-
-<b>Documentação dos endpoints de Pedido via Swagger:</b>
-```shell script
-http://localhost:8083/pedidos-ms/swagger-ui.html
-```
-
-<b>Documentação dos endpoints de Pedido via Redoc:</b>
-```shell script
-http://localhost:8083/pedidos-ms/redoc.html
+http://localhost:8082/redoc.html
 ```
 
 ##
