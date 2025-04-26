@@ -61,12 +61,16 @@ O projeto usa o MySQL como banco de dados.
 ##
 <b>Shop Consumer:</b>
 Banco de Dados: shop_consumer
-Usuário: root
-Senha: shop_consumer@2025
 
+Usuário: root
+
+Senha: shop_consumer@2025
+<br><br>
 <b>Shop Producer:</b>
 Banco de Dados: shop_producer
+
 Usuário: root
+
 Senha: shop_producer@2025
 
 Rodando o projeto localmente:
