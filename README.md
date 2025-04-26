@@ -36,7 +36,7 @@ Execute o comando no terminal no diretório onde o Kafka:
 ./bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
 
-Para iniciar o Zookeeper, você também pode excutar o Shekkscript `run_zookeeper.sh` na pasta kafka.
+Para iniciar o Zookeeper, você também pode excutar o Shellscript <b>`run_zookeeper.sh`</b> na pasta kafka.
 
 ### Rodando o Kafka:
 Execute o comando no terminal no diretório onde o Kafka estiver na sua máquina:
@@ -44,7 +44,7 @@ Execute o comando no terminal no diretório onde o Kafka estiver na sua máquina
 ./bin/kafka-server-start.sh config/server.properties
 ```
 
-Para iniciar o Kafka, você também pode excutar o Shekkscript `run_kafka.sh` na pasta kafka.
+Para iniciar o Kafka, você também pode excutar o Shellscript <b>`run_kafka.sh`</b> na pasta kafka.
 
 ##
 ### Consumindo tópicos:
