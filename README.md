@@ -36,11 +36,16 @@ Execute o comando no terminal no diretório onde o Kafka:
 ./bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
 
+Para iniciar o Zookeeper, você também pode excutar o Shekkscript `run_zookeeper.sh` na pasta kafka.
+
 ### Rodando o Kafka:
 Execute o comando no terminal no diretório onde o Kafka estiver na sua máquina:
 ```shell script
 ./bin/kafka-server-start.sh config/server.properties
 ```
+
+Para iniciar o Kafka, você também pode excutar o Shekkscript `run_kafka.sh` na pasta kafka.
+
 ##
 ### Consumindo tópicos:
 Para consumir tópicos no Kafka, execute o comando no terminal no diretório onde do Kafka:
@@ -49,6 +54,20 @@ Para consumir tópicos no Kafka, execute o comando no terminal no diretório ond
 	--topic topic_name \
 	--bootstrap-server localhost:9092
 ```
+
+Banco de Dados:
+---------------
+O projeto usa o MySQL como banco de dados.
+##
+<b>Shop Consumer:</b>
+Banco de Dados: shop_consumer
+Usuário: root
+Senha: shop_consumer@2025
+
+<b>Shop Producer:</b>
+Banco de Dados: shop_producer
+Usuário: root
+Senha: shop_producer@2025
 
 Rodando o projeto localmente:
 -----------------------------
