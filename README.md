@@ -37,6 +37,9 @@ Execute o comando no terminal no diretório onde o Kafka:
 ```
 
 Para iniciar o Zookeeper, você também pode excutar o Shellscript <b>`run_zookeeper.sh`</b> na pasta kafka.
+```shell script
+./run_zookeeper.sh
+```
 
 ### Rodando o Kafka:
 Execute o comando no terminal no diretório onde o Kafka estiver na sua máquina:
@@ -45,6 +48,9 @@ Execute o comando no terminal no diretório onde o Kafka estiver na sua máquina
 ```
 
 Para iniciar o Kafka, você também pode excutar o Shellscript <b>`run_kafka.sh`</b> na pasta kafka.
+```shell script
+./run_kafka.sh
+```
 
 ##
 ### Consumindo tópicos:
