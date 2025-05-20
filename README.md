@@ -41,6 +41,7 @@ Para iniciar o Zookeeper, você também pode excutar o Shellscript <b>`run_zooke
 ./run_zookeeper.sh
 ```
 
+##
 ### Rodando o Kafka:
 Execute o comando no terminal no diretório onde o Kafka estiver na sua máquina:
 ```shell script
