@@ -31,8 +31,7 @@ public class ShopItem {
 	
 	public static ShopItem convert(ShopItemDTO shopItemDTO) {
 		ShopItem shopItem = new ShopItem();
-		shopItem.setProductIdentifier(
-		shopItemDTO.getProductIdentifier());
+		shopItem.setProductIdentifier(shopItemDTO.getProductIdentifier());
 		shopItem.setAmount(shopItemDTO.getAmount());
 		shopItem.setPrice(shopItemDTO.getPrice());
 		
